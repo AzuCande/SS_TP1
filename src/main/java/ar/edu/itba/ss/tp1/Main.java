@@ -1,15 +1,19 @@
 package ar.edu.itba.ss.tp1;
 
+import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
+import java.io.FileWriter;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Instant currentTimestamp = Instant.now();
         if ((double) Constants.L / Constants.M <= Constants.radius) {
             System.err.println("L/M does not satisfy the condition L/M > r_c");
             return;
         }
+
+        FileWriter file = new FileWriter("data.txt");
 
         Cell[][] matrix = new Cell[Constants.M][Constants.M];
 
@@ -22,10 +26,15 @@ public class Main {
 
         for (int i = 0; i < matrix1.getMatrix().length; i++) {
             for (int j = 0; j < matrix1.getMatrix()[i].length; j++) {
-                System.out.println(matrix1.getMatrix()[i][j]);
+                Cell currentCell = matrix1.getMatrix()[i][j];
+                System.out.println(currentCell);
+                for (Particle particle : currentCell.getParticles()) {
+                    file.write(String.format("%f %f\n", particle.getX(), particle.getY()));
+                }
             }
         }
 
+        file.close();
         System.out.println("Time elapsed: " + (Instant.now().toEpochMilli() - currentTimestamp.toEpochMilli()) + "ms");
     }
 }
