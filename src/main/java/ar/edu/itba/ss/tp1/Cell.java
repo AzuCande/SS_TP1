@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Cell {
     List<Particle> particles;
-    private double xPos;
-    private double yPos;
+    private int xPos;
+    private int yPos;
 
     public Cell(List<Particle> particles) {
         this.particles = particles;
@@ -15,14 +15,21 @@ public class Cell {
         return particles;
     }
 
-    public double getxPos() {
+    public int getxPos() {
         return xPos;
     }
 
-    public double getyPos() {
+    public int getyPos() {
         return yPos;
     }
 
+    public void setxPos(int xPos) {
+        this.xPos = xPos;
+    }
+
+    public void setyPos(int yPos) {
+        this.yPos = yPos;
+    }
     @Override
     public String toString() {
         return "Cell [particles=" + particles + ", xPos=" + xPos + ", yPos=" + yPos + "]";
