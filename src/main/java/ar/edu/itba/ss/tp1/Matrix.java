@@ -30,7 +30,11 @@ public class Matrix {
         return neighbors;
     }
 
-    private void addNeighbor(Particle currentParticle, Particle possibleNeighbor, int currentParticlePosition, int possibleNeighborPosition) {
+    private void addNeighbor(
+            Particle currentParticle,
+            Particle possibleNeighbor,
+            int currentParticlePosition,
+            int possibleNeighborPosition) {
         if (getEucledianDistance(currentParticle, possibleNeighbor) <= Constants.radius) {
             neighbors[currentParticlePosition].add(possibleNeighbor);
             neighbors[possibleNeighborPosition].add(currentParticle);
@@ -39,9 +43,17 @@ public class Matrix {
 
     private void cellNeighbor(Cell currentCell){
         if ((currentCell.getxPos() - 1) < 0 || (currentCell.getyPos() + 1) > Constants.L){
-            // out of matrix
+            if (!periodic){
+//                 out of matrix -> tira error?
+            }else {
+//            duplicar fila/columna
+            }
         }
         //TODO: llamar a add con las celdas que tengo en la L de vecinas -> Santi
+        addNeighbor(currentCell, matrix[currentCell.getxPos() - 1][currentCell.getyPos()]);
+        addNeighbor(currentCell, matrix[currentCell.getxPos() - 1][currentCell.getyPos() + 1]);
+        addNeighbor(currentCell, matrix[currentCell.getxPos()][currentCell.getyPos() + 1]);
+        addNeighbor(currentCell, matrix[currentCell.getxPos() + 1][currentCell.getyPos() + 1]);
     }
 
     private double getEucledianDistance(Particle p1, Particle p2) {
