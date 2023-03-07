@@ -38,7 +38,7 @@ public class Matrix {
         if ((currentCell.getxPos() - 1) < 0 || (currentCell.getyPos() + 1) > Constants.L){
             // out of matrix
         }
-        // llamar a add con las celdas que tengo en la L de vecinas -> Santi
+        //TODO: llamar a add con las celdas que tengo en la L de vecinas -> Santi
     }
 
     private double getEucledianDistance(Particle p1, Particle p2) {

@@ -5,7 +5,7 @@ import numpy as np
 x_positions = []
 y_positions = []
 
-with open('../../../data.txt') as f:
+with open('../../../output.txt') as f:
     for line in f.readlines():
         positions = line.split()
         x_positions.append(float(positions[0]))
