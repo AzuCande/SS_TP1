@@ -1,6 +1,6 @@
 package ar.edu.itba.ss.tp1;
 
-import java.util.List;
+import java.util.*;
 
 public class Matrix {
     private Cell[][] matrix;
@@ -20,6 +20,9 @@ public class Matrix {
     public void addParticle(Particle particle) {
         int x = (int) Math.floor(particle.getX() / cellSize);
         int y = (int) Math.floor(particle.getY() / cellSize);
+        if(matrix[x][y] == null) {
+            matrix[x][y] = new Cell(new ArrayList<>());
+        }
         matrix[x][y].getParticles().add(particle);
     }
 

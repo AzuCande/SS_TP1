@@ -6,7 +6,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileWriter;
-import java.util.Random;
 import java.util.Scanner;
 
 
@@ -39,6 +38,8 @@ public class Main {
         }
         sc.close();
 
+        System.out.println();
+
         //Verify initial conditions
         Instant currentTimestamp = Instant.now();
         if ((double) Constants.L / Constants.M <= Constants.radius) {
@@ -48,9 +49,26 @@ public class Main {
 
         FileWriter file = new FileWriter("output.txt");
 
-        Cell[][] matrix = new Cell[Constants.M][Constants.M];
-        Matrix matrix1 = new Matrix(matrix);
-        //TODO: Ubicar cada particula de la lista 'particles' dentro de una celda dependiendo de su posicion
+        Cell[][] cells = new Cell[Constants.M][Constants.M];
+        Matrix matrix = new Matrix(cells);
+
+        //Assign particles to cells based on their positions
+        for(Particle p: particles) {
+            System.out.println(p);
+            matrix.addParticle(p);
+        }
+
+        System.out.println();
+
+        //Print particles by cell -> verification purposes only
+        for(int i = 0; i < Constants.M; i++) {
+            for(int j = 0; j < Constants.M; j++) {
+                if(matrix.getMatrix()[i][j] != null) {
+                    System.out.println("Cell: " + i + j);
+                    System.out.println(matrix.getMatrix()[i][j].getParticles());
+                }
+            }
+        }
 
 //        int index = 0;
 //        for(int i = 0; i < Constants.M; i++) {
@@ -59,7 +77,6 @@ public class Main {
 //                index += 2;
 //            }
 //        }
-
 
 
 //        for (int i = 0; i < matrix1.getMatrix().length; i++) {
