@@ -24,6 +24,14 @@ public class Particle {
         return index;
     }
 
+//    public void setX(double x) {
+//        this.x = x;
+//    }
+//
+//    public void setY(double y) {
+//        this.y = y;
+//    }
+
     @Override
     public String toString() {
         return "Particle [x=" + x + ", y=" + y + ", index=" + index + "]";

@@ -41,37 +41,72 @@ public class Matrix {
     }
 
     private void cellNeighbor(Cell currentCell){
-        if ((currentCell.getxPos() - 1) < 0 || (currentCell.getyPos() + 1) > Constants.L){
-            if (!Constants.periodic){
-//                 out of matrix -> tira error?
-            }else {
-//            duplicar fila/columna
+        for (Particle p : currentCell.getParticles()){
+            if (Constants.periodic)
+                checkCellNeighborsPeriodic(p, currentCell.getxPos(), currentCell.getyPos());
+            else
+                checkCellNeighborsNonPeriodic(p, currentCell.getxPos(), currentCell.getyPos());
+        }
+    }
+
+    private void checkCellNeighborsPeriodic(Particle currentParticle, int x, int y){
+        if (x - 1 < 0){ // "copiar" la ultima fila
+            for (Particle p : matrix[Constants.M - 1][y].getParticles()) {
+                Particle pCopy = new Particle(p.getX() - Constants.L, p.getY(), p.getIndex());
+                addNeighbor(currentParticle, pCopy);
+            }
+            if (y + 1 < Constants.M){ // no estoy en el borde derecho
+                for (Particle p : matrix[Constants.M - 1][y + 1].getParticles()) {
+                    Particle pCopy = new Particle(p.getX() - Constants.L, p.getY(), p.getIndex());
+                    addNeighbor(currentParticle, pCopy);
+                }
+            } else {
+                for (Particle p : matrix[Constants.M - 1][0].getParticles()) {
+                    // traigo el de la esquina inferior izquierda
+                    Particle pCopy = new Particle(p.getX() - Constants.L, p.getY() + Constants.L, p.getIndex());
+                    addNeighbor(currentParticle, pCopy);
+                }
             }
         }
-        //TODO: llamar a add con las celdas que tengo en la L de vecinas -> Santi
-//        addNeighbor(currentCell, matrix[currentCell.getxPos() - 1][currentCell.getyPos()]);
-//        addNeighbor(currentCell, matrix[currentCell.getxPos() - 1][currentCell.getyPos() + 1]);
-//        addNeighbor(currentCell, matrix[currentCell.getxPos()][currentCell.getyPos() + 1]);
-//        addNeighbor(currentCell, matrix[currentCell.getxPos() + 1][currentCell.getyPos() + 1]);
+
+        if (y + 1 >= Constants.M){ // "copiar" la primera columna
+            for (Particle p : matrix[x][0].getParticles()) {
+                Particle pCopy = new Particle(p.getX(), p.getY() + Constants.L, p.getIndex());
+                addNeighbor(currentParticle, pCopy);
+            }
+            if (x + 1 < Constants.M){ // no estoy en el borde inferior
+                for (Particle p : matrix[x + 1][0].getParticles()) {
+                    Particle pCopy = new Particle(p.getX(), p.getY() + Constants.L, p.getIndex());
+                    addNeighbor(currentParticle, pCopy);
+                }
+            } else {
+                for (Particle p : matrix[0][0].getParticles()) {
+                    // traigo el de la esquina superior izquierda
+                    Particle pCopy = new Particle(p.getX() + Constants.L, p.getY() + Constants.L, p.getIndex());
+                    addNeighbor(currentParticle, pCopy);
+                }
+            }
+        }
+        checkCellNeighborsNonPeriodic(currentParticle, x, y);
     }
 
     // TODO: Santi fijate si es esto lo que querías escribir (esto solo aplica para non periodic)
     private void checkCellNeighborsNonPeriodic(Particle currentParticle, int x, int y) {
-        if (y - 1 >= 0) {
-            for (Particle p : matrix[x][y - 1].getParticles()) {
+        if (x - 1 >= 0) {
+            for (Particle p : matrix[x - 1][y].getParticles()) {
                 addNeighbor(currentParticle, p);
             }
         }
-        if (x + 1 < Constants.M) {
-            if (y - 1 >= 0) {
-                for (Particle p : matrix[x + 1][y - 1].getParticles()) {
+        if (y + 1 < Constants.M) {
+            if (x - 1 >= 0) {
+                for (Particle p : matrix[x - 1][y + 1].getParticles()) {
                     addNeighbor(currentParticle, p);
                 }
             }
-            for (Particle p : matrix[x + 1][y].getParticles()) {
+            for (Particle p : matrix[x][y + 1].getParticles()) {
                 addNeighbor(currentParticle, p);
             }
-            if (y + 1 < Constants.M) {
+            if (x + 1 < Constants.M) {
                 for (Particle p : matrix[x + 1][y + 1].getParticles()) {
                     addNeighbor(currentParticle, p);
                 }
