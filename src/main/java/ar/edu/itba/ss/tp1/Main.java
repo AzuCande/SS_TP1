@@ -72,6 +72,8 @@ public class Main {
             }
         }
 
+        System.out.println();
+
         matrix.createNeighborList();
 
 

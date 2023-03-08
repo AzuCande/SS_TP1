@@ -41,49 +41,54 @@ public class Matrix {
     }
 
     private void cellNeighbor(Cell currentCell){
-        for (Particle p : currentCell.getParticles()){
-            if (Constants.periodic)
+        for (Particle p : currentCell.getParticles()) {
+            if (Constants.periodic) {
                 checkCellNeighborsPeriodic(p, currentCell.getxPos(), currentCell.getyPos());
-            else
+            } else {
                 checkCellNeighborsNonPeriodic(p, currentCell.getxPos(), currentCell.getyPos());
+            }
         }
     }
 
     private void checkCellNeighborsPeriodic(Particle currentParticle, int x, int y){
-        if (x - 1 < 0){ // "copiar" la ultima fila
+        if (x - 1 < 0 && matrix[Constants.M - 1][y] != null){ // "copiar" la ultima fila
             for (Particle p : matrix[Constants.M - 1][y].getParticles()) {
                 Particle pCopy = new Particle(p.getX() - Constants.L, p.getY(), p.getIndex());
                 addNeighbor(currentParticle, pCopy);
             }
-            if (y + 1 < Constants.M){ // no estoy en el borde derecho
+            if (y + 1 < Constants.M && matrix[Constants.M - 1][y+1] != null){ // no estoy en el borde derecho
                 for (Particle p : matrix[Constants.M - 1][y + 1].getParticles()) {
                     Particle pCopy = new Particle(p.getX() - Constants.L, p.getY(), p.getIndex());
                     addNeighbor(currentParticle, pCopy);
                 }
             } else {
-                for (Particle p : matrix[Constants.M - 1][0].getParticles()) {
-                    // traigo el de la esquina inferior izquierda
-                    Particle pCopy = new Particle(p.getX() - Constants.L, p.getY() + Constants.L, p.getIndex());
-                    addNeighbor(currentParticle, pCopy);
+                if(matrix[Constants.M - 1][0] != null) {
+                    for (Particle p : matrix[Constants.M - 1][0].getParticles()) {
+                        // traigo el de la esquina inferior izquierda
+                        Particle pCopy = new Particle(p.getX() - Constants.L, p.getY() + Constants.L, p.getIndex());
+                        addNeighbor(currentParticle, pCopy);
+                    }
                 }
             }
         }
 
-        if (y + 1 >= Constants.M){ // "copiar" la primera columna
+        if (y + 1 >= Constants.M && matrix[x][0] != null){ // "copiar" la primera columna
             for (Particle p : matrix[x][0].getParticles()) {
                 Particle pCopy = new Particle(p.getX(), p.getY() + Constants.L, p.getIndex());
                 addNeighbor(currentParticle, pCopy);
             }
-            if (x + 1 < Constants.M){ // no estoy en el borde inferior
+            if (x + 1 < Constants.M && matrix[x+1][0] != null) { // no estoy en el borde inferior
                 for (Particle p : matrix[x + 1][0].getParticles()) {
                     Particle pCopy = new Particle(p.getX(), p.getY() + Constants.L, p.getIndex());
                     addNeighbor(currentParticle, pCopy);
                 }
             } else {
-                for (Particle p : matrix[0][0].getParticles()) {
-                    // traigo el de la esquina superior izquierda
-                    Particle pCopy = new Particle(p.getX() + Constants.L, p.getY() + Constants.L, p.getIndex());
-                    addNeighbor(currentParticle, pCopy);
+                if(matrix[0][0] != null) {
+                    for (Particle p : matrix[0][0].getParticles()) {
+                        // traigo el de la esquina superior izquierda
+                        Particle pCopy = new Particle(p.getX() + Constants.L, p.getY() + Constants.L, p.getIndex());
+                        addNeighbor(currentParticle, pCopy);
+                    }
                 }
             }
         }
@@ -92,21 +97,23 @@ public class Matrix {
 
     // TODO: Santi fijate si es esto lo que querías escribir (esto solo aplica para non periodic)
     private void checkCellNeighborsNonPeriodic(Particle currentParticle, int x, int y) {
-        if (x - 1 >= 0) {
+        if (x - 1 >= 0 && matrix[x-1][y] != null) {
             for (Particle p : matrix[x - 1][y].getParticles()) {
                 addNeighbor(currentParticle, p);
             }
         }
         if (y + 1 < Constants.M) {
-            if (x - 1 >= 0) {
+            if (x - 1 >= 0 && matrix[x-1][y+1] != null) {
                 for (Particle p : matrix[x - 1][y + 1].getParticles()) {
                     addNeighbor(currentParticle, p);
                 }
             }
-            for (Particle p : matrix[x][y + 1].getParticles()) {
-                addNeighbor(currentParticle, p);
+            if(matrix[x][y+1] != null) {
+                for (Particle p : matrix[x][y + 1].getParticles()) {
+                    addNeighbor(currentParticle, p);
+                }
             }
-            if (x + 1 < Constants.M) {
+            if (x + 1 < Constants.M && matrix[x+1][y+1] != null) {
                 for (Particle p : matrix[x + 1][y + 1].getParticles()) {
                     addNeighbor(currentParticle, p);
                 }
@@ -120,13 +127,13 @@ public class Matrix {
         for(int i = 0; i < Constants.N; i++) {
             this.neighbors[i] = new ArrayList<>();
         }
-//        for(int i = 0; i < Constants.M; i++) {
-//            for(int j = 0; j < Constants.M; j++) {
-//                if(matrix[i][j] != null) {
-//                    cellNeighbor(matrix[i][j]);
-//                }
-//            }
-//        }
+        for(int i = 0; i < Constants.M; i++) {
+            for(int j = 0; j < Constants.M; j++) {
+                if(matrix[i][j] != null) {
+                    cellNeighbor(matrix[i][j]);
+                }
+            }
+        }
     }
 
     private double getEucledianDistance(Particle p1, Particle p2) {
