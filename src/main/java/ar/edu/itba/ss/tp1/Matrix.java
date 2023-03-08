@@ -5,7 +5,7 @@ import java.util.*;
 public class Matrix {
     private Cell[][] matrix;
 
-    private List<Particle>[] neighbors;
+    private List<Particle>[] neighbors = (ArrayList<Particle>[])new ArrayList[Constants.N];
 
     private final double cellSize = (double) Constants.L / Constants.M;
 
@@ -116,20 +116,17 @@ public class Matrix {
     }
 
     // TODO: Fijarse si tener en cuenta solo las celdas no vacías para más eficiencia
-    public void createNeighbourList() {
+    public void createNeighborList() {
         for(int i = 0; i < Constants.N; i++) {
-            neighbors[i] = new ArrayList<>();
+            this.neighbors[i] = new ArrayList<>();
         }
-
-        for(int i = 0; i < Constants.M; i++) {
-            for(int j = 0; j < Constants.M; j++) {
-                if(matrix[i][j] != null) {
-                    for(Particle p: matrix[i][j].getParticles()) {
-                        cellNeighbor(matrix[i][j]);
-                    }
-                }
-            }
-        }
+//        for(int i = 0; i < Constants.M; i++) {
+//            for(int j = 0; j < Constants.M; j++) {
+//                if(matrix[i][j] != null) {
+//                    cellNeighbor(matrix[i][j]);
+//                }
+//            }
+//        }
     }
 
     private double getEucledianDistance(Particle p1, Particle p2) {

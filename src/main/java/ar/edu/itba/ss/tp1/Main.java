@@ -3,11 +3,8 @@ package ar.edu.itba.ss.tp1;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.io.FileWriter;
-import java.util.Properties;
-import java.util.Scanner;
 
 
 public class Main {
@@ -68,11 +65,16 @@ public class Main {
         for(int i = 0; i < Constants.M; i++) {
             for(int j = 0; j < Constants.M; j++) {
                 if(matrix.getMatrix()[i][j] != null) {
+                    Cell c = matrix.getMatrix()[i][j];
                     System.out.println("Cell: " + i + j);
-                    System.out.println(matrix.getMatrix()[i][j].getParticles());
+                    System.out.println(c.getParticles());
                 }
             }
         }
+
+        matrix.createNeighborList();
+
+
 
 //        int index = 0;
 //        for(int i = 0; i < Constants.M; i++) {
