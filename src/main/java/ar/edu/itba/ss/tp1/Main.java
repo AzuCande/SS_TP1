@@ -6,14 +6,18 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileWriter;
+import java.util.Properties;
 import java.util.Scanner;
 
 
 public class Main {
-
     static int N;
     static List<Particle> particles = new ArrayList<>();
     public static void main(String[] args) throws IOException {
+        // Get parameter for periodic option
+        Parser parser = new Parser();
+        parser.parse();
+
         /**
          * Read particle information from input file
          * File format: x-pos y-pos radius
@@ -44,7 +48,7 @@ public class Main {
         Instant currentTimestamp = Instant.now();
         if ((double) Constants.L / Constants.M <= Constants.radius) {
             System.err.println("L/M does not satisfy the condition L/M > r_c");
-            return;
+            System.exit(1);
         }
 
         FileWriter file = new FileWriter("output.txt");

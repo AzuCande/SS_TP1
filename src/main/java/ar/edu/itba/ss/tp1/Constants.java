@@ -9,4 +9,8 @@ public class Constants {
 
     static double radius = 0.3;
     static double particleRadius = 0.1;
+
+    public static void setPeriodic(boolean periodic) {
+        Constants.periodic = periodic;
+    }
 }
