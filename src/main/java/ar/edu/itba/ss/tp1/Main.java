@@ -12,8 +12,8 @@ public class Main {
     static List<Particle> particles = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         // Get parameter for periodic option
-        Parser parser = new Parser();
-        parser.parse();
+//        Parser parser = new Parser();
+//        parser.parse();
 
         /**
          * Read particle information from input file
@@ -75,27 +75,14 @@ public class Main {
         System.out.println();
 
         matrix.createNeighborList();
+        System.out.println("here");
 
+        for(int i = 0; i < Constants.N; i++) {
+            System.out.println(matrix.getNeighbors()[i]);
+        }
 
+        System.out.println(matrix.getMatrix()[0][1].getParticles());
 
-//        int index = 0;
-//        for(int i = 0; i < Constants.M; i++) {
-//            for(int j = 0; j < Constants.M; j++) {
-//                matrix[i][j] = new Cell(List.of(new Particle(Constants.M * rand.nextDouble(), Constants.M * rand.nextDouble(), index), new Particle(Constants.M * rand.nextDouble(), Constants.M * rand.nextDouble(), index+1)));
-//                index += 2;
-//            }
-//        }
-
-
-//        for (int i = 0; i < matrix1.getMatrix().length; i++) {
-//            for (int j = 0; j < matrix1.getMatrix()[i].length; j++) {
-//                Cell currentCell = matrix1.getMatrix()[i][j];
-//                System.out.println(currentCell);
-//                for (Particle particle : currentCell.getParticles()) {
-//                    file.write(String.format("%f %f\n", particle.getX(), particle.getY()));
-//                }
-//            }
-//        }
 
         file.close();
         System.out.println("Time elapsed: " + (Instant.now().toEpochMilli() - currentTimestamp.toEpochMilli()) + "ms");

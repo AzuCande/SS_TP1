@@ -18,8 +18,8 @@ public class Matrix {
     }
 
     public void addParticle(Particle particle) {
-        int x = (int) Math.floor(particle.getX() / cellSize);
-        int y = (int) Math.floor(particle.getY() / cellSize);
+        int x = (int) Math.floor(particle.getY() / cellSize);
+        int y = (int) Math.floor(particle.getX() / cellSize);
 
         if(matrix[x][y] == null)
             matrix[x][y] = new Cell(new ArrayList<>());
@@ -31,10 +31,12 @@ public class Matrix {
         return neighbors;
     }
 
-    private void addNeighbor(
-            Particle currentParticle,
-            Particle possibleNeighbor) {
-        if (getEucledianDistance(currentParticle, possibleNeighbor) <= Constants.radius) {
+    private void addNeighbor(Particle currentParticle, Particle possibleNeighbor) {
+        double distance = getEucledianDistance(currentParticle, possibleNeighbor);
+        System.out.println("Checking particle: " + possibleNeighbor.getIndex());
+        System.out.println(distance);
+        if (distance <= Constants.radius) {
+            System.out.println("Neighbor found!");
             neighbors[currentParticle.getIndex()].add(possibleNeighbor);
             neighbors[possibleNeighbor.getIndex()].add(currentParticle);
         }
@@ -98,22 +100,26 @@ public class Matrix {
     // TODO: Santi fijate si es esto lo que querías escribir (esto solo aplica para non periodic)
     private void checkCellNeighborsNonPeriodic(Particle currentParticle, int x, int y) {
         if (x - 1 >= 0 && matrix[x-1][y] != null) {
+            System.out.println("Checking cell: " + (x-1) + y);
             for (Particle p : matrix[x - 1][y].getParticles()) {
                 addNeighbor(currentParticle, p);
             }
         }
         if (y + 1 < Constants.M) {
             if (x - 1 >= 0 && matrix[x-1][y+1] != null) {
+                System.out.println("Checking cell: " + (x-1) + (y+1));
                 for (Particle p : matrix[x - 1][y + 1].getParticles()) {
                     addNeighbor(currentParticle, p);
                 }
             }
             if(matrix[x][y+1] != null) {
+                System.out.println("Checking cell: " + x + (y+1));
                 for (Particle p : matrix[x][y + 1].getParticles()) {
                     addNeighbor(currentParticle, p);
                 }
             }
             if (x + 1 < Constants.M && matrix[x+1][y+1] != null) {
+                System.out.println("Checking cell: " + (x+1) + (y+1));
                 for (Particle p : matrix[x + 1][y + 1].getParticles()) {
                     addNeighbor(currentParticle, p);
                 }
@@ -124,12 +130,15 @@ public class Matrix {
 
     // TODO: Fijarse si tener en cuenta solo las celdas no vacías para más eficiencia
     public void createNeighborList() {
+        // Initialize neighbors list
         for(int i = 0; i < Constants.N; i++) {
             this.neighbors[i] = new ArrayList<>();
         }
+        // Fill with neighbors
         for(int i = 0; i < Constants.M; i++) {
             for(int j = 0; j < Constants.M; j++) {
                 if(matrix[i][j] != null) {
+                    System.out.println("Cell: " + i + j);
                     cellNeighbor(matrix[i][j]);
                 }
             }
@@ -137,7 +146,7 @@ public class Matrix {
     }
 
     private double getEucledianDistance(Particle p1, Particle p2) {
-        return Math.sqrt(Math.pow(p1.getX() - p2.getX(), 2) + Math.pow(p1.getY() - p2.getY(), 2)) - 2 * Constants.particleRadius;
+        return Math.abs(Math.sqrt(Math.pow(p1.getX() - p2.getX(), 2) + Math.pow(p1.getY() - p2.getY(), 2)) - 2 * Constants.particleRadius);
     }
 
     @Override
