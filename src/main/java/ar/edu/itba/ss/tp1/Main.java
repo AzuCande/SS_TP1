@@ -12,8 +12,8 @@ public class Main {
     static List<Particle> particles = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         //Get parameter for periodic option
-//        Parser parser = new Parser();
-//        parser.parse();
+        Parser parser = new Parser();
+        parser.parse();
 
         File inputFile = new File("input.txt");
         Scanner sc = new Scanner(inputFile);
