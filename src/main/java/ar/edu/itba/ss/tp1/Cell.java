@@ -7,8 +7,10 @@ public class Cell {
     private int xPos;
     private int yPos;
 
-    public Cell(List<Particle> particles) {
+    public Cell(List<Particle> particles, int xPos, int yPos) {
         this.particles = particles;
+        this.xPos = xPos;
+        this.yPos = yPos;
     }
 
     public List<Particle> getParticles() {

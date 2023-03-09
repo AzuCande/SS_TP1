@@ -22,7 +22,7 @@ public class Matrix {
         int y = (int) Math.floor(particle.getX() / cellSize);
 
         if(matrix[x][y] == null)
-            matrix[x][y] = new Cell(new ArrayList<>());
+            matrix[x][y] = new Cell(new ArrayList<>(), x, y);
 
         matrix[x][y].getParticles().add(particle);
     }
@@ -101,7 +101,7 @@ public class Matrix {
     private void checkCellNeighborsNonPeriodic(Particle currentParticle, int x, int y) {
         System.out.println("Checking cell: " + x + y);
         for(Particle p: matrix[x][y].getParticles()) {
-            if(currentParticle.getX() != p.getX() && currentParticle.getY() != p.getY())
+            if(!currentParticle.equals(p))
                 addNeighbor(currentParticle, p);
         }
         if (x - 1 >= 0 && matrix[x-1][y] != null) {
