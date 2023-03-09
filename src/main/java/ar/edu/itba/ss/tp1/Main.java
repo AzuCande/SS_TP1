@@ -12,8 +12,8 @@ public class Main {
     static List<Particle> particles = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         //Get parameter for periodic option
-        Parser parser = new Parser();
-        parser.parse();
+//        Parser parser = new Parser();
+//        parser.parse();
 
         File inputFile = new File("input.txt");
         Scanner sc = new Scanner(inputFile);
@@ -43,7 +43,7 @@ public class Main {
             System.exit(1);
         }
 
-        FileWriter file = new FileWriter("output.txt");
+        FileWriter outputFile = new FileWriter("output.txt");
 
         Cell[][] cells = new Cell[Constants.M][Constants.M];
         Matrix matrix = new Matrix(cells);
@@ -72,11 +72,17 @@ public class Main {
         matrix.createNeighborList();
         System.out.println("here");
 
+
         for(int i = 0; i < Constants.N; i++) {
             System.out.println(matrix.getNeighbors().get(i));
+            outputFile.write(Integer.toString(particles.get(i).getIndex()) + " ");
+            for (Particle p: matrix.getNeighbors().get(i)) {
+                outputFile.write(p.getIndex() + " ");
+            }
+            outputFile.write("\n");
         }
 
-        file.close();
+        outputFile.close();
         System.out.println("Time elapsed: " + (Instant.now().toEpochMilli() - currentTimestamp.toEpochMilli()) + "ms");
     }
 }
