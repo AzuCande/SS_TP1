@@ -11,14 +11,10 @@ public class Main {
     static int N;
     static List<Particle> particles = new ArrayList<>();
     public static void main(String[] args) throws IOException {
-        // Get parameter for periodic option
-//        Parser parser = new Parser();
-//        parser.parse();
+        //Get parameter for periodic option
+        Parser parser = new Parser();
+        parser.parse();
 
-        /**
-         * Read particle information from input file
-         * File format: x-pos y-pos radius
-         */
         File inputFile = new File("input.txt");
         Scanner sc = new Scanner(inputFile);
         int lineCount = 0;
@@ -35,7 +31,6 @@ public class Main {
                 index++;
             }
             lineCount++;
-            System.out.println(data);
         }
         sc.close();
 
@@ -78,11 +73,8 @@ public class Main {
         System.out.println("here");
 
         for(int i = 0; i < Constants.N; i++) {
-            System.out.println(matrix.getNeighbors()[i]);
+            System.out.println(matrix.getNeighbors().get(i));
         }
-
-        System.out.println(matrix.getMatrix()[0][1].getParticles());
-
 
         file.close();
         System.out.println("Time elapsed: " + (Instant.now().toEpochMilli() - currentTimestamp.toEpochMilli()) + "ms");

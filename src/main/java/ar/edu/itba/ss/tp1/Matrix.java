@@ -3,9 +3,9 @@ package ar.edu.itba.ss.tp1;
 import java.util.*;
 
 public class Matrix {
-    private Cell[][] matrix;
+    private final Cell[][] matrix;
 
-    private List<Particle>[] neighbors = (ArrayList<Particle>[])new ArrayList[Constants.N];
+    private final Map<Integer, Set<Particle>> neighbors = new HashMap<>();
 
     private final double cellSize = (double) Constants.L / Constants.M;
 
@@ -27,18 +27,18 @@ public class Matrix {
         matrix[x][y].getParticles().add(particle);
     }
 
-    public List<Particle>[] getNeighbors() {
+    public Map<Integer, Set<Particle>> getNeighbors() {
         return neighbors;
     }
 
     private void addNeighbor(Particle currentParticle, Particle possibleNeighbor) {
         double distance = getEucledianDistance(currentParticle, possibleNeighbor);
         System.out.println("Checking particle: " + possibleNeighbor.getIndex());
-        System.out.println(distance);
+        System.out.println("Distance to particle: " + distance);
         if (distance <= Constants.radius) {
             System.out.println("Neighbor found!");
-            neighbors[currentParticle.getIndex()].add(possibleNeighbor);
-            neighbors[possibleNeighbor.getIndex()].add(currentParticle);
+            neighbors.get(currentParticle.getIndex()).add(possibleNeighbor);
+            neighbors.get(possibleNeighbor.getIndex()).add(currentParticle);
         }
     }
 
@@ -99,6 +99,11 @@ public class Matrix {
 
     // TODO: Santi fijate si es esto lo que querías escribir (esto solo aplica para non periodic)
     private void checkCellNeighborsNonPeriodic(Particle currentParticle, int x, int y) {
+        System.out.println("Checking cell: " + x + y);
+        for(Particle p: matrix[x][y].getParticles()) {
+            if(currentParticle.getX() != p.getX() && currentParticle.getY() != p.getY())
+                addNeighbor(currentParticle, p);
+        }
         if (x - 1 >= 0 && matrix[x-1][y] != null) {
             System.out.println("Checking cell: " + (x-1) + y);
             for (Particle p : matrix[x - 1][y].getParticles()) {
@@ -132,7 +137,7 @@ public class Matrix {
     public void createNeighborList() {
         // Initialize neighbors list
         for(int i = 0; i < Constants.N; i++) {
-            this.neighbors[i] = new ArrayList<>();
+            neighbors.put(i, new HashSet<>());
         }
         // Fill with neighbors
         for(int i = 0; i < Constants.M; i++) {
@@ -140,6 +145,7 @@ public class Matrix {
                 if(matrix[i][j] != null) {
                     System.out.println("Cell: " + i + j);
                     cellNeighbor(matrix[i][j]);
+                    System.out.println();
                 }
             }
         }
