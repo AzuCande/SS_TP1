@@ -4,6 +4,8 @@ import numpy as np
 
 particles = {}
 neighbors = {}
+xpos = np.array([])
+ypos = np.array([])
 
 with open('../../../input.txt') as f:
     index = 0
@@ -12,6 +14,8 @@ with open('../../../input.txt') as f:
         data = line.split()
         if lineCount != 0:
             particles[index] = [float(data[0]), float(data[1])]
+            xpos = np.append(xpos, float(data[0]))
+            ypos = np.append(ypos, float(data[1]))
             index += 1
         lineCount += 1
 
@@ -29,8 +33,11 @@ print(particles)
 print()
 print(neighbors)
 
+#plot x and y positions as circles with radius 0.1
+plt.scatter(xpos, ypos, s=10, c='b', marker='o', alpha=0.5)
+plt.grid()
 # cmap = ListedColormap(['w'])
 # a = np.diag(range(2))
 # cax = plt.matshow(a,cmap=cmap)
 # plt.scatter(x_positions,y_positions)
-# plt.show()
+plt.show()
