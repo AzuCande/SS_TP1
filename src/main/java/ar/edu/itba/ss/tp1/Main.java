@@ -38,14 +38,14 @@ public class Main {
 
         //Verify initial conditions
         Instant currentTimestamp = Instant.now();
-        if ((double) Constants.L / Constants.M <= Constants.radius) {
+        if ((double) Utils.L / Utils.M <= Utils.radius) {
             System.err.println("L/M does not satisfy the condition L/M > r_c");
             System.exit(1);
         }
 
         FileWriter outputFile = new FileWriter("output.txt");
 
-        Cell[][] cells = new Cell[Constants.M][Constants.M];
+        Cell[][] cells = new Cell[Utils.M][Utils.M];
         Matrix matrix = new Matrix(cells);
 
         //Assign particles to cells based on their positions
@@ -57,8 +57,8 @@ public class Main {
         System.out.println();
 
         //Print particles by cell -> verification purposes only
-        for(int i = 0; i < Constants.M; i++) {
-            for(int j = 0; j < Constants.M; j++) {
+        for(int i = 0; i < Utils.M; i++) {
+            for(int j = 0; j < Utils.M; j++) {
                 if(matrix.getMatrix()[i][j] != null) {
                     Cell c = matrix.getMatrix()[i][j];
                     System.out.println("Cell: " + i + j);
@@ -73,7 +73,7 @@ public class Main {
         System.out.println("here");
 
 
-        for(int i = 0; i < Constants.N; i++) {
+        for(int i = 0; i < Utils.N; i++) {
             System.out.println(matrix.getNeighbors().get(i));
             outputFile.write(Integer.toString(particles.get(i).getIndex()) + " ");
             for (Particle p: matrix.getNeighbors().get(i)) {

@@ -21,7 +21,7 @@ public class Parser {
 
         switch (periodic) {
             case "true":
-                Constants.setPeriodic(true);
+                Utils.setPeriodic(true);
                 break;
             case "false":
                 break;
