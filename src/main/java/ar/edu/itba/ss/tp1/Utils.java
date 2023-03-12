@@ -1,14 +1,14 @@
 package ar.edu.itba.ss.tp1;
 
 public class Utils {
-    static int N = 8;
-    static int L = 2;
-    static int M = 2;
+    static int N = 8; // punto 2 de la consigna, probando con 8
+    static int L = 20; // punto 2 de la consigna
+    static int M = 10; // punto 2 de la consigna, probando con 10
     static boolean periodic = false; // caso a) Sin condiciones periódicas de contorno
 //    boolean periodic = true; // caso b) Com condiciones periódicas de contorno
 
-    static double radius = 0.3;
-    static double particleRadius = 0.1;
+    static double radius = 1; // punto 2 de la consigna
+    static double particleRadius = 0.25; // punto 2 de la consigna
 
     public static void setN(int n) {
         N = n;

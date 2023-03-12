@@ -56,18 +56,43 @@ public class Main {
 
         System.out.println();
 
-        matrix.createNeighborList();
+        // brutal force:
+        // /*
+        Map<Integer, Set<Particle>> neighbors = new HashMap<>();
+        for(int i = 0; i < Utils.N; i++) {
+            neighbors.put(i, new HashSet<>());
+        }
+
+        for (Particle p: particles) {
+            for (Particle p2: particles) {
+                if (!(p.equals(p2))) {
+                    if (Utils.getEucledianDistance(p, p2) <= Utils.radius) {
+                        neighbors.get(p.getIndex()).add(p2);
+                        neighbors.get(p2.getIndex()).add(p);
+                    }
+                }
+            }
+        }
+// */
+//        matrix.createNeighborList();
         System.out.println("here");
 
-
         for(int i = 0; i < Utils.N; i++) {
-            System.out.println(matrix.getNeighbors().get(i));
+            System.out.println(neighbors.get(i));
             outputFile.write(Integer.toString(particles.get(i).getIndex()) + " ");
-            for (Particle p: matrix.getNeighbors().get(i)) {
+            for (Particle p: neighbors.get(i)) {
                 outputFile.write(p.getIndex() + " ");
             }
             outputFile.write("\n");
         }
+//        for(int i = 0; i < Utils.N; i++) {
+//            System.out.println(matrix.getNeighbors().get(i));
+//            outputFile.write(Integer.toString(particles.get(i).getIndex()) + " ");
+//            for (Particle p: matrix.getNeighbors().get(i)) {
+//                outputFile.write(p.getIndex() + " ");
+//            }
+//            outputFile.write("\n");
+//        }
 
         outputFile.close();
         System.out.println("Time elapsed: " + (Instant.now().toEpochMilli() - currentTimestamp.toEpochMilli()) + "ms");
