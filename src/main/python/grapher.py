@@ -7,6 +7,8 @@ neighbors = {}
 xpos = np.array([])
 ypos = np.array([])
 
+fig, ax = plt.subplots()
+
 with open('../../../input.txt') as f:
     index = 0
     lineCount = 0
@@ -16,6 +18,9 @@ with open('../../../input.txt') as f:
             particles[index] = [float(data[0]), float(data[1])]
             xpos = np.append(xpos, float(data[0]))
             ypos = np.append(ypos, float(data[1]))
+            circle = plt.Circle((float(data[0]), float(data[1])), 0.5, color='r', fill=False)
+            ax.set_aspect('equal', adjustable='datalim')
+            ax.add_patch(circle)
             index += 1
         lineCount += 1
 
@@ -35,9 +40,8 @@ print(neighbors)
 
 #plot x and y positions as circles with radius 0.1
 plt.scatter(xpos, ypos, s=10, c='b', marker='o', alpha=0.5)
+for i in range(len(xpos)):
+    # The 1st argument is the annotation label, 2nd is the coordinate of the annotation
+    plt.annotate(i, (xpos[i], ypos[i]))
 plt.grid()
-# cmap = ListedColormap(['w'])
-# a = np.diag(range(2))
-# cax = plt.matshow(a,cmap=cmap)
-# plt.scatter(x_positions,y_positions)
 plt.show()
