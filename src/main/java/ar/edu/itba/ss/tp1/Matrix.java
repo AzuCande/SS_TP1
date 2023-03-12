@@ -55,14 +55,14 @@ public class Matrix {
         // 00 01
         if (x + 1 >= Utils.M && matrix[0][y] != null) { // necesito la celda de la misma col pero ultima fila
             for(Particle p : matrix[0][y].getParticles()) {
-                Particle pCopy = new Particle(p.getX(), p.getY() + Utils.L, p.getIndex());
+                Particle pCopy = new Particle(p.getX(), p.getY() + Utils.L, p.getIndex(), p.getRadius());
                 if (checkNeighborCondition(currentParticle, pCopy)){
                     addNeighbor(currentParticle, p);
                 }
             }
             if (y + 1 >= Utils.M && matrix[0][0] != null) { // caso del extremo superior derecho
                 for (Particle p : matrix[0][0].getParticles()) {
-                    Particle pCopy = new Particle(p.getX() + Utils.L, p.getY() + Utils.L, p.getIndex());
+                    Particle pCopy = new Particle(p.getX() + Utils.L, p.getY() + Utils.L, p.getIndex(), p.getRadius());
                     if (checkNeighborCondition(currentParticle, pCopy)){
                         addNeighbor(currentParticle, p);
                     }
@@ -73,7 +73,7 @@ public class Matrix {
         // 00 01 00
         if (y + 1 >= Utils.M && matrix[x][0] != null) { // necesito la celda de la misma fila pero 1ra col
             for (Particle p : matrix[x][0].getParticles()) {
-                Particle pCopy = new Particle(p.getX() + Utils.L, p.getY(), p.getIndex());
+                Particle pCopy = new Particle(p.getX() + Utils.L, p.getY(), p.getIndex(), p.getRadius());
                 if (checkNeighborCondition(currentParticle, pCopy)){
                     addNeighbor(currentParticle, p);
                 }
@@ -83,7 +83,7 @@ public class Matrix {
             //       10
             if (x - 1 < 0 && matrix[Utils.M - 1][0] != null) { // caso de la esquina inferior derecha
                 for (Particle p : matrix[Utils.M - 1][0].getParticles()) {
-                    Particle pCopy = new Particle(p.getX() + Utils.L, p.getY() - Utils.L, p.getIndex());
+                    Particle pCopy = new Particle(p.getX() + Utils.L, p.getY() - Utils.L, p.getIndex(), p.getRadius());
                     if (checkNeighborCondition(currentParticle, pCopy)){
                         addNeighbor(currentParticle, p);
                     }

@@ -33,6 +33,6 @@ public class Utils {
 
     public static double getEucledianDistance(Particle p1, Particle p2) {
         System.out.println("Checking particle: " + p2.getIndex());
-        return Math.abs(Math.sqrt(Math.pow(p1.getX() - p2.getX(), 2) + Math.pow(p1.getY() - p2.getY(), 2)) - 2 * Utils.particleRadius);
+        return Math.abs(Math.sqrt(Math.pow(p1.getX() - p2.getX(), 2) + Math.pow(p1.getY() - p2.getY(), 2)) - p1.getRadius() - p2.getRadius());
     }
 }

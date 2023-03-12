@@ -15,6 +15,13 @@ public class Particle {
         this.index = index;
     }
 
+    public Particle(double x, double y, int index, double radius) {
+        this.x = x;
+        this.y = y;
+        this.index = index;
+        this.radius = radius;
+    }
+
     public double getX() {
         return x;
     }
