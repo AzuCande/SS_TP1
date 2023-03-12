@@ -1,6 +1,5 @@
 package ar.edu.itba.ss.tp1;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.*;
@@ -8,36 +7,24 @@ import java.io.FileWriter;
 
 
 public class Main {
-    static int N;
-    static List<Particle> particles = new ArrayList<>();
+    private static int N;
+    private static List<Particle> particles = new ArrayList<>();
     public static void main(String[] args) throws IOException {
+        // Set current time
+        Instant currentTimestamp = Instant.now();
+
         //Get parameter for periodic option
         Parser parser = new Parser();
-        parser.parse();
+        parser.parseParameters();
 
-        File inputFile = new File("input.txt");
-        Scanner sc = new Scanner(inputFile);
-        int lineCount = 0;
-        int index = 0;
-        while (sc.hasNextLine()) {
-            String data = sc.nextLine();
-            if(lineCount == 0) {
-                N = Integer.parseInt(data);
-            }
-            else {
-                String[] splitData = data.split(" ");
-                Particle p = new Particle(Double.parseDouble(splitData[0]), Double.parseDouble(splitData[1]), index);
-                particles.add(p);
-                index++;
-            }
-            lineCount++;
-        }
-        sc.close();
+        // Parse dynamic input
+        parser.parseDynamicFile(particles);
+        // Parse static input
+        parser.parseStaticFile(particles);
 
         System.out.println();
 
         //Verify initial conditions
-        Instant currentTimestamp = Instant.now();
         if ((double) Utils.L / Utils.M <= Utils.radius) {
             System.err.println("L/M does not satisfy the condition L/M > r_c");
             System.exit(1);

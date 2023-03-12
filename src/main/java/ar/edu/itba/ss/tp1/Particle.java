@@ -6,7 +6,8 @@ public class Particle {
     private double x;
     private double y;
     private int index;
-
+    private double radius;
+    private double property;
 
     public Particle(double x, double y, int index) {
         this.x = x;
@@ -24,6 +25,22 @@ public class Particle {
 
     public int getIndex() {
         return index;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public double getProperty() {
+        return property;
+    }
+
+    public void setProperty(double property) {
+        this.property = property;
     }
 
     @Override

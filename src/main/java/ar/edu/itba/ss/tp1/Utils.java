@@ -10,8 +10,25 @@ public class Utils {
     static double radius = 0.3;
     static double particleRadius = 0.1;
 
+    public static void setN(int n) {
+        N = n;
+    }
+
+    public static void setL(int l) {
+        L = l;
+    }
+
+    public static void setM(int m) {
+        M = m;
+    }
+
     public static void setPeriodic(boolean periodic) {
         Utils.periodic = periodic;
+    }
+
+
+    public static void setParticleRadius(double particleRadius) {
+        Utils.particleRadius = particleRadius;
     }
 
     public static double getEucledianDistance(Particle p1, Particle p2) {
