@@ -1,5 +1,7 @@
 package ar.edu.itba.ss.tp1;
 
+//import jdk.jshell.execution.Util;
+
 import java.util.*;
 
 public class Matrix {
@@ -48,15 +50,63 @@ public class Matrix {
     }
 
     private void checkCellNeighborsPeriodic(Particle currentParticle, int x, int y){
+        // 00 01
+        // 10 11 X
+        // 00 01
+        if (x + 1 >= Utils.M && matrix[0][y] != null) { // necesito la celda de la misma col pero ultima fila
+            for(Particle p : matrix[0][y].getParticles()) {
+                Particle pCopy = new Particle(p.getX(), p.getY() + Utils.L, p.getIndex());
+                if (checkNeighborCondition(currentParticle, pCopy)){
+                    addNeighbor(currentParticle, p);
+                }
+            }
+            if (y + 1 >= Utils.M && matrix[0][0] != null) { // caso del extremo superior derecho
+                for (Particle p : matrix[0][0].getParticles()) {
+                    Particle pCopy = new Particle(p.getX() + Utils.L, p.getY() + Utils.L, p.getIndex());
+                    if (checkNeighborCondition(currentParticle, pCopy)){
+                        addNeighbor(currentParticle, p);
+                    }
+                }
+            }
+        }
+        // 10 11 10
+        // 00 01 00
+        if (y + 1 >= Utils.M && matrix[x][0] != null) { // necesito la celda de la misma fila pero 1ra col
+            for (Particle p : matrix[x][0].getParticles()) {
+                Particle pCopy = new Particle(p.getX() + Utils.L, p.getY(), p.getIndex());
+                if (checkNeighborCondition(currentParticle, pCopy)){
+                    addNeighbor(currentParticle, p);
+                }
+            }
+            // 10 11 10
+            // 00 01 00
+            //       10
+            if (x - 1 < 0 && matrix[Utils.M - 1][0] != null) { // caso de la esquina inferior derecha
+                for (Particle p : matrix[Utils.M - 1][0].getParticles()) {
+                    Particle pCopy = new Particle(p.getX() + Utils.L, p.getY() - Utils.L, p.getIndex());
+                    if (checkNeighborCondition(currentParticle, pCopy)){
+                        addNeighbor(currentParticle, p);
+                    }
+                }
+            }
+        }
+
+
+ /*
         if (y - 1 < 0 && matrix[x][Utils.M - 1] != null){ // "copiar" la ultima fila
             for (Particle p : matrix[x][Utils.M - 1].getParticles()) {
                 Particle pCopy = new Particle(p.getX(), p.getY() - Utils.L, p.getIndex());
-                addNeighbor(currentParticle, pCopy);
+//                addNeighbor(currentParticle, pCopy);
+                if (checkNeighborCondition(currentParticle, pCopy)){
+                    addNeighbor(currentParticle, pCopy);
+                }
             }
             if (x + 1 < Utils.M && matrix[x + 1][Utils.M - 1] != null){ // no estoy en el borde derecho
                 for (Particle p : matrix[x + 1][Utils.M - 1].getParticles()) {
                     Particle pCopy = new Particle(p.getX(), p.getY() - Utils.L, p.getIndex());
-                    addNeighbor(currentParticle, pCopy);
+                    if (checkNeighborCondition(currentParticle, pCopy)){
+                        addNeighbor(currentParticle, pCopy);
+                    }
                 }
             }
         }
@@ -64,15 +114,20 @@ public class Matrix {
         if (x + 1 >= Utils.M && matrix[0][y] != null){ // "copiar" la primera columna
             for (Particle p : matrix[0][x].getParticles()) {
                 Particle pCopy = new Particle(p.getX() + Utils.L, p.getY(), p.getIndex());
-                addNeighbor(currentParticle, pCopy);
+                if (checkNeighborCondition(currentParticle, pCopy)){
+                    addNeighbor(currentParticle, pCopy);
+                }
             }
             if (y + 1 < Utils.M && matrix[0][y + 1] != null) { // no estoy en el borde inferior
                 for (Particle p : matrix[0][y + 1].getParticles()) {
                     Particle pCopy = new Particle(p.getX() + Utils.L, p.getY(), p.getIndex());
-                    addNeighbor(currentParticle, pCopy);
+                    if (checkNeighborCondition(currentParticle, pCopy)){
+                        addNeighbor(currentParticle, pCopy);
+                    }
                 }
             }
         }
+      */
         checkCellNeighborsNonPeriodic(currentParticle, x, y);
     }
 
