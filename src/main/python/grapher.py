@@ -2,6 +2,10 @@ from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap
 import numpy as np
 
+def annotateAll():
+    for i in range(len(xpos)):
+        plt.annotate(i, (xpos[i], ypos[i]))
+
 particles = {}
 neighbors = {}
 xpos = np.array([])
@@ -38,10 +42,22 @@ print(particles)
 print()
 print(neighbors)
 
-#plot x and y positions as circles with radius 0.1
+# plot x and y positions as circles with radius 0.1
 plt.scatter(xpos, ypos, s=10, c='b', marker='o', alpha=0.5)
-for i in range(len(xpos)):
-    # The 1st argument is the annotation label, 2nd is the coordinate of the annotation
-    plt.annotate(i, (xpos[i], ypos[i]))
+annotateAll()
+plt.xlim(0, 2)
+plt.ylim(0, 2)
 plt.grid()
 plt.show()
+
+for i in range(len(xpos)):
+    plt.scatter(xpos, ypos, s=10, c='b', marker='o', alpha=0.5)
+    plt.plot(xpos[i], ypos[i], c='g', marker='o', alpha=0.5)
+    for n in neighbors[i]:
+        print(particles[n])
+        plt.plot(particles[n][0], particles[n][1], c='r', marker='o', alpha=0.5)
+    annotateAll()
+    plt.xlim(0, 2)
+    plt.ylim(0, 2)
+    plt.grid()
+    plt.show()
