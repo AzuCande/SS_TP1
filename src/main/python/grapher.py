@@ -1,5 +1,6 @@
+import math
+
 from matplotlib import pyplot as plt
-from matplotlib.colors import ListedColormap
 import numpy as np
 
 def annotateAll():
@@ -11,18 +12,24 @@ neighbors = {}
 xpos = np.array([])
 ypos = np.array([])
 
+cRadius = 1  # SETEAR
+
 fig, ax = plt.subplots()
 
-with open('../../../input.txt') as f:
+with open('../resources/staticInput.txt') as f:
+    line = f.readlines()[2]
+    pRadius = float(line.split()[0])
+
+with open('../resources/dynamicInput.txt') as f:
     index = 0
     lineCount = 0
     for line in f.readlines():
         data = line.split()
-        if lineCount != 0:
+        if lineCount >= 1:
             particles[index] = [float(data[0]), float(data[1])]
             xpos = np.append(xpos, float(data[0]))
             ypos = np.append(ypos, float(data[1]))
-            circle = plt.Circle((float(data[0]), float(data[1])), 0.5, color='r', fill=False)
+            circle = plt.Circle((float(data[0]), float(data[1])), cRadius, color='r', fill=False)
             ax.set_aspect('equal', adjustable='datalim')
             ax.add_patch(circle)
             index += 1
@@ -42,8 +49,9 @@ print(particles)
 print()
 print(neighbors)
 
+size = pRadius/0.1 * 10
 # plot x and y positions as circles with radius 0.1
-plt.scatter(xpos, ypos, s=10, c='b', marker='o', alpha=0.5)
+plt.scatter(xpos, ypos, s=size, c='b', marker='o', alpha=0.5)
 annotateAll()
 plt.xlim(0, 2)
 plt.ylim(0, 2)
@@ -51,7 +59,7 @@ plt.grid()
 plt.show()
 
 for i in range(len(xpos)):
-    plt.scatter(xpos, ypos, s=10, c='b', marker='o', alpha=0.5)
+    plt.scatter(xpos, ypos, s=size, c='b', marker='o', alpha=0.5)
     plt.plot(xpos[i], ypos[i], c='g', marker='o', alpha=0.5)
     for n in neighbors[i]:
         print(particles[n])
