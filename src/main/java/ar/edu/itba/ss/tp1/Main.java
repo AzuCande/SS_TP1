@@ -1,6 +1,7 @@
 package ar.edu.itba.ss.tp1;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.time.Instant;
 import java.util.*;
 import java.io.FileWriter;
@@ -25,6 +26,7 @@ public class Main {
         System.out.println();
 
         //Verify initial conditions
+        Utils.L = 20;
         if ((double) Utils.L / Utils.M <= Utils.radius) {
             System.err.println("L/M does not satisfy the condition L/M > r_c");
             System.exit(1);

@@ -1,9 +1,9 @@
 package ar.edu.itba.ss.tp1;
 
 public class Utils {
-    static int N = 8; // punto 2 de la consigna, probando con 8
+    static int N = 16; // punto 2 de la consigna, probando con 8
     static int L = 20; // punto 2 de la consigna
-    static int M = 19; // punto 2 de la consigna, probando con 10
+    static int M = 10; // punto 2 de la consigna, probando con 10
     static boolean periodic = false; // caso a) Sin condiciones periódicas de contorno
 //    boolean periodic = true; // caso b) Com condiciones periódicas de contorno
 
