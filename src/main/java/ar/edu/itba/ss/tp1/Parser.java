@@ -12,8 +12,10 @@ public class Parser {
     private String STATIC_FILE = "staticFile";
     private String DYNAMIC_FILE = "dynamicFile";
 
-    private String staticFile = "staticInput.txt";
-    private String dynamicFile = "dynamicInput.txt";
+//    private String staticFile = "staticInput.txt";
+    private String staticFile = "staticInput_2.txt";
+//    private String dynamicFile = "dynamicInput.txt";
+    private String dynamicFile = "dynamicInput_2.txt";
     private  String resourcesPath = "src/main/resources/";
 
     /**

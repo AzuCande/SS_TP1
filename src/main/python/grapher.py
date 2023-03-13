@@ -9,7 +9,8 @@ ypos = np.array([])
 
 fig, ax = plt.subplots()
 
-with open('../../../input.txt') as f:
+# with open('../../../input.txt') as f:
+with open('../../../input_2.txt') as f:
     index = 0
     lineCount = 0
     for line in f.readlines():
