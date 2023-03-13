@@ -47,6 +47,9 @@ public class Parser {
             System.out.println("Using default matrix size: 2");
         }
 
+        Utils.setM(Integer.parseInt(m));
+        System.out.println("Matrix size: " + Utils.M + "x" + Utils.M);
+
         String staticFile = properties.getProperty(STATIC_FILE);
 
         if (staticFile == null) {
