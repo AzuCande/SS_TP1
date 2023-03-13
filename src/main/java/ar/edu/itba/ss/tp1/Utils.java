@@ -26,9 +26,8 @@ public class Utils {
         Utils.periodic = periodic;
     }
 
-
-    public static void setParticleRadius(double particleRadius) {
-        Utils.particleRadius = particleRadius;
+    public static void setRadius(double radius) {
+        Utils.radius = radius;
     }
 
     public static double getEucledianDistance(Particle p1, Particle p2) {

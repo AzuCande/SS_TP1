@@ -11,6 +11,7 @@ public class Parser {
     private String M = "matrixSize";
     private String STATIC_FILE = "staticFile";
     private String DYNAMIC_FILE = "dynamicFile";
+    private String RADIUS = "rc";
 
     private String staticFile = "staticInput.txt";
     private String dynamicFile = "dynamicInput.txt";
@@ -66,6 +67,15 @@ public class Parser {
             System.out.println("Using default dynamic file: dynamicInput.txt");
         } else {
             this.dynamicFile = dynamicFile;
+        }
+
+        String radius = properties.getProperty(RADIUS);
+
+        if (radius == null) {
+            System.err.println("No radius parameter provided");
+            System.out.println("Using default radius: " + Utils.radius);
+        } else {
+            Utils.setRadius(Double.parseDouble(radius));
         }
     }
 
