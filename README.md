@@ -21,12 +21,14 @@ Para correr el proyecto, incluir los siguientes parámetros en VM options:
 * `-DmatrixSize=value` donde `value` es un valor de tipo `int` para indicar el tamaño de la matriz.
 * `-DstaticFile=filename` donde `filename` es el nombre del archivo de entrada de tipo estático. Se debe colocar el archivo dentro de la carpeta `src/main/resources`.
 * `-DdynamicFile=filename` donde `filename` es el nombre del archivo de entrada de tipo dinámico. Se debe colocar el archivo dentro de la carpeta `src/main/resources`.
+* `-Drc=value` donde `value` es un valor de tipo `double` para indicar el radio de relación.
 
 Estos parámetros tienen valores por defecto:
 * `periodic` es `false`
 * `matrixSize` es `2`
 * `staticFile` es `staticInput.txt`
 * `dynamicFile` es `dynamicInput.txt`
+* `rc` es `0.3`
 
 ## Ejecución del análisis de datos
 Para poder obtener el gráfico de los resultados de la simulación, ubicarse en el directorio `src/main/python` y ejecutar:
